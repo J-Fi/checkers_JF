@@ -2,15 +2,15 @@
  * Sample Skeleton for 'checkersBoard.fxml' Controller Class
  */
 
+import java.lang.reflect.Array;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -22,6 +22,11 @@ import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 
 public class CheckersBoardController {
+
+    private final String whitePieceColor = "#e4f5de";
+    private final String whitePieceColorWhenChosen = "yellow";
+    private final String blackPieceColor = "black";
+    private final String blackPieceColorWhenChosen = "grey";
 
     public CheckersBoardController() {
 
@@ -129,210 +134,183 @@ public class CheckersBoardController {
     @FXML // fx:id="fieldA7"
     private Rectangle fieldA7; // Value injected by FXMLLoader
 
-    @FXML // fx:id="piece_C7"
-    private Circle piece_C7; // Value injected by FXMLLoader
+    @FXML // fx:id="pieceWhite_1"
+    private Circle pieceWhite_1; // Value injected by FXMLLoader
 
-    @FXML // fx:id="piece_D8"
-    private Circle piece_D8; // Value injected by FXMLLoader
+    @FXML // fx:id="pieceWhite_2"
+    private Circle pieceWhite_2; // Value injected by FXMLLoader
 
-    @FXML // fx:id="piece_A7"
-    private Circle piece_A7; // Value injected by FXMLLoader
+    @FXML // fx:id="pieceWhite_3"
+    private Circle pieceWhite_3; // Value injected by FXMLLoader
 
-    @FXML // fx:id="piece_B8"
-    private Circle piece_B8; // Value injected by FXMLLoader
+    @FXML // fx:id="pieceWhite_4"
+    private Circle pieceWhite_4; // Value injected by FXMLLoader
 
-    @FXML // fx:id="piece_B2"
-    private Circle piece_B2; // Value injected by FXMLLoader
+    @FXML // fx:id="pieceWhite_5"
+    private Circle pieceWhite_5; // Value injected by FXMLLoader
 
-    @FXML // fx:id="piece_A1"
-    private Circle piece_A1; // Value injected by FXMLLoader
+    @FXML // fx:id="pieceWhite_6"
+    private Circle pieceWhite_6; // Value injected by FXMLLoader
 
-    @FXML // fx:id="piece_G7"
-    private Circle piece_G7; // Value injected by FXMLLoader
+    @FXML // fx:id="pieceWhite_7"
+    private Circle pieceWhite_7; // Value injected by FXMLLoader
 
-    @FXML // fx:id="piece_H8"
-    private Circle piece_H8; // Value injected by FXMLLoader
+    @FXML // fx:id="pieceWhite_8"
+    private Circle pieceWhite_8; // Value injected by FXMLLoader
 
-    @FXML // fx:id="piece_F8"
-    private Circle piece_F8; // Value injected by FXMLLoader
+    @FXML // fx:id="pieceBlack_1"
+    private Circle pieceBlack_1; // Value injected by FXMLLoader
 
-    @FXML // fx:id="piece_E7"
-    private Circle piece_E7; // Value injected by FXMLLoader
+    @FXML // fx:id="pieceBlack_2"
+    private Circle pieceBlack_2; // Value injected by FXMLLoader
 
-    @FXML // fx:id="piece_E1"
-    private Circle piece_E1; // Value injected by FXMLLoader
+    @FXML // fx:id="pieceBlack_3"
+    private Circle pieceBlack_3; // Value injected by FXMLLoader
 
-    @FXML // fx:id="piece_F2"
-    private Circle piece_F2; // Value injected by FXMLLoader
+    @FXML // fx:id="pieceBlack_4"
+    private Circle pieceBlack_4; // Value injected by FXMLLoader
 
-    @FXML // fx:id="piece_C1"
-    private Circle piece_C1; // Value injected by FXMLLoader
+    @FXML // fx:id="pieceBlack_5"
+    private Circle pieceBlack_5; // Value injected by FXMLLoader
 
-    @FXML // fx:id="piece_D2"
-    private Circle piece_D2; // Value injected by FXMLLoader
+    @FXML // fx:id="pieceBlack_6"
+    private Circle pieceBlack_6; // Value injected by FXMLLoader
 
-    @FXML // fx:id="piece_G1"
-    private Circle piece_G1; // Value injected by FXMLLoader
+    @FXML // fx:id="pieceBlack_7"
+    private Circle pieceBlack_7; // Value injected by FXMLLoader
 
-    @FXML // fx:id="piece_H2"
-    private Circle piece_H2; // Value injected by FXMLLoader
+    @FXML // fx:id="pieceBlack_8"
+    private Circle pieceBlack_8; // Value injected by FXMLLoader
 
-    @FXML
+    @FXML // fx:id="checkersBoard"
     private GridPane checkersBoard;
 
-    public Circle getPiece_C7() {
-        return piece_C7;
-    }
-
-    public Circle getPiece_D8() {
-        return piece_D8;
-    }
-
-    public Circle getPiece_A7() {
-        return piece_A7;
-    }
-
-    public Circle getPiece_B8() {
-        return piece_B8;
-    }
-
-    public Circle getPiece_G7() {
-        return piece_G7;
-    }
-
-    public Circle getPiece_H8() {
-        return piece_H8;
-    }
-
-    public Circle getPiece_F8() {
-        return piece_F8;
-    }
-
-    public Circle getPiece_E7() {
-        return piece_E7;
-    }
-
-
     @FXML
-    void markPieceA7 () {
-        if ((piece_A7.getFill()).equals(Color.web("#e4f5de"))) {
-            piece_A7.setFill(Paint.valueOf("yellow"));
-        } else if (piece_A7.getFill().equals(Paint.valueOf("yellow"))){
-            piece_A7.setFill(Color.web("#e4f5de"));
-        }
+    private Button computerTurn;
 
+    public List<Rectangle> bronzeFieldsCollection() {
+        Rectangle[] bronzeFields = new Rectangle[] {fieldA1, fieldA3, fieldA5, fieldA7,
+                                                    fieldB2, fieldB4, fieldB6, fieldB8,
+                                                    fieldC1, fieldC3, fieldC5, fieldC7,
+                                                    fieldD2, fieldD4, fieldD6, fieldD8,
+                                                    fieldE1, fieldE3, fieldE5, fieldE7,
+                                                    fieldF2, fieldF4, fieldF6, fieldF8,
+                                                    fieldG1, fieldG3, fieldG5, fieldG7,
+                                                    fieldH2, fieldH4, fieldH6, fieldH8};
+        return Arrays.asList(bronzeFields);
     }
 
 
-
-    public LinkedList<Circle> whitePiecesCollection() {
-        LinkedList<Circle> whitePieces = new LinkedList<>();
-        whitePieces.add(piece_A7);
-        whitePieces.add(piece_B8);
-        whitePieces.add(piece_C7);
-        whitePieces.add(piece_D8);
-        whitePieces.add(piece_E7);
-        whitePieces.add(piece_F8);
-        whitePieces.add(piece_G7);
-        whitePieces.add(piece_H8);
-
-        return whitePieces;
+    public List<Circle> whitePiecesCollection() {
+        Circle[] whitePieces = new Circle[] {pieceWhite_1, pieceWhite_2, pieceWhite_3,
+                                            pieceWhite_4, pieceWhite_5, pieceWhite_6,
+                                            pieceWhite_7, pieceWhite_8};
+        return Arrays.asList(whitePieces);
     }
 
-    public LinkedList<Circle> blackPiecesCollection() {
-        LinkedList<Circle> blackPieces = new LinkedList<>();
-        blackPieces.add(piece_A1);
-        blackPieces.add(piece_B2);
-        blackPieces.add(piece_C1);
-        blackPieces.add(piece_D2);
-        blackPieces.add(piece_E1);
-        blackPieces.add(piece_F2);
-        blackPieces.add(piece_G1);
-        blackPieces.add(piece_H2);
+/*    public ArrayList<Circle> whitePiecesCollection() {
+        ArrayList<Circle> whitePiecesCollection = new ArrayList<>();
+        whitePiecesCollection.add(pieceWhite_1);
+        whitePiecesCollection.add(pieceWhite_2);
+        whitePiecesCollection.add(pieceWhite_3);
+        whitePiecesCollection.add(pieceWhite_4);
+        whitePiecesCollection.add(pieceWhite_5);
+        whitePiecesCollection.add(pieceWhite_6);
+        whitePiecesCollection.add(pieceWhite_7);
+        whitePiecesCollection.add(pieceWhite_8);
+        return whitePiecesCollection;
+    }*/
 
+    public List<Circle> blackPiecesCollection() {
+        Circle[] blackPieces = new Circle[] {pieceBlack_1, pieceBlack_2, pieceBlack_3,
+                                            pieceBlack_4, pieceBlack_5, pieceBlack_6,
+                                            pieceBlack_7, pieceBlack_8};
+        return Arrays.asList(blackPieces);
+    }
+
+    public List<Circle> mergedPiecesCollection() {
+        List<Circle> mergedList = new ArrayList<>(whitePiecesCollection());
+        mergedList.addAll(blackPiecesCollection());
+
+        return mergedList;
+    }
+
+    public List<Circle> blackPieces() {
+        PieceSelector pieceSelector = new PieceSelector();
+        List<Circle> blackPieces = pieceSelector.getAllBlackPieces(checkersBoard, blackPieceColor);
         return blackPieces;
     }
 
-    public Circle findOtherYellowPiece(LinkedList<Circle> list) {
-        for (Circle circle : list) {
-            if (circle.getFill().equals(Paint.valueOf("yellow"))) {
-                return circle;
-            }
-
-        }
-        return null;
+    public List<Circle> whitePieces() {
+        PieceSelector pieceSelector = new PieceSelector();
+        List<Circle> whitePieces = pieceSelector.getAllWhitePieces(checkersBoard, whitePieceColor, whitePieceColorWhenChosen);
+        return whitePieces;
     }
 
+    public List<Circle> allPieces() {
+        PieceSelector pieceSelector = new PieceSelector();
+        List<Circle> allPieces = pieceSelector.getAllPieces(checkersBoard);
+        return allPieces;
+    }
+
+    public List<Rectangle> allFields() {
+        PieceSelector pieceSelector = new PieceSelector();
+        List<Rectangle> allFields = pieceSelector.getAllFields(checkersBoard);
+        return allFields;
+    }
 
     @FXML
     void markPiece (MouseEvent event) { //
-        getCoordinates();
-        Node circle = (Circle) event.getSource();
-        PiecesCollections pc = new PiecesCollections();
-        Circle flag = pc.findOtherYellowPiece(whitePiecesCollection());
-        if ((circle.getFill()).equals(Color.web("#e4f5de"))) {
-            if (flag == null) {
-                circle.setFill(Paint.valueOf("yellow"));
-            } else {
-                flag.setFill(Color.web("#e4f5de"));
-                circle.setFill(Paint.valueOf("yellow"));
-            }
-        } else if (circle.getFill().equals(Paint.valueOf("yellow"))){
-            circle.setFill(Color.web("#e4f5de"));
-        }
-    }
-
-     int[] getCoordinates(Node n) {
-        int x = GridPane.getColumnIndex(n);
-        int y = GridPane.getRowIndex(n);
-        int[] coordinates = {x,y};
-        System.out.println(x + " " + y);
-
-        return coordinates;
-
+        Circle circle = (Circle) event.getSource();
+        PieceSelector pieceSelector = new PieceSelector();
+        pieceSelector.selectPieceToMove(circle, whitePieces(), whitePieceColor, whitePieceColorWhenChosen);
     }
 
     @FXML
     void move (MouseEvent event) {
-        Object o = event.getSource();
-        int[] coordinates = getCoordinates((Node)o);
-        TranslateTransition translateTransition = new TranslateTransition();
-        translateTransition.setDuration(Duration.millis(2000));
-        if (o instanceof Circle) {
-            if(((Circle) o).getFill().equals(Paint.valueOf("black"))) {
-                checkersBoard.getChildren().remove(o);
-
-            }
-        } else if (o instanceof Rectangle){
-
-        Rectangle rectangle = (Rectangle) event.getSource();
-
-        translateTransition.setNode(piece_E7);
-        translateTransition.setByX(-100.0);
-        translateTransition.setByY(-100.0);
-        translateTransition.play();
-        }
-
+        Object obj = event.getSource();
+        PieceMover pieceMover = new PieceMover();
+        pieceMover.movePieceByUser(obj, whitePieces(), checkersBoard, whitePieceColor, whitePieceColorWhenChosen, blackPieceColor, allPieces());
+        //computerMove();
     }
 
-    @FXML // This method is called by the FXMLLoader when initialization is complete
+    @FXML
+    void computerMove () {
+        ComputerPlayer computerMove = new ComputerPlayer();
+        //computerMove.computerChoosesPiece(blackPiecesCollection(), blackPieceColorWhenChosen);
+        /*PieceSelector pieceSelector = new PieceSelector();
+        List<Circle> blackPieces = pieceSelector.getOneColorPieces(checkersBoard, blackPieceColor);
+        List<Circle> whitePieces = pieceSelector.getOneColorPieces(checkersBoard, whitePieceColor);
+        List<Circle> allPieces = pieceSelector.getAllPieces(checkersBoard);
+        List<Rectangle> allFields = pieceSelector.getAllFields(checkersBoard);*/
+        System.out.println("All rectangles " + allFields().size());
+        System.out.println("All whitePieces " + whitePieces().size());
+        System.out.println("All blackPieces " + blackPieces().size());
+        System.out.println("All blackPieces " + blackPieces().size());
+        System.out.println("fx:id " + pieceWhite_3.getId());
+        computerMove.computerMovesPiece(blackPieces(), whitePieces(), allPieces(), allFields(), checkersBoard);
+    }
+
+
+
+    /*@FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        assert piece_C7 != null : "fx:id=\"piece_C7\" was not injected: check your FXML file 'checkersBoard.fxml'.";
-        assert piece_D8 != null : "fx:id=\"piece_D8\" was not injected: check your FXML file 'checkersBoard.fxml'.";
-        assert piece_A7 != null : "fx:id=\"piece_A7\" was not injected: check your FXML file 'checkersBoard.fxml'.";
-        assert piece_B8 != null : "fx:id=\"piece_B8\" was not injected: check your FXML file 'checkersBoard.fxml'.";
-        assert piece_B2 != null : "fx:id=\"piece_B2\" was not injected: check your FXML file 'checkersBoard.fxml'.";
-        assert piece_A1 != null : "fx:id=\"piece_A1\" was not injected: check your FXML file 'checkersBoard.fxml'.";
-        assert piece_G7 != null : "fx:id=\"piece_G7\" was not injected: check your FXML file 'checkersBoard.fxml'.";
-        assert piece_H8 != null : "fx:id=\"piece_H8\" was not injected: check your FXML file 'checkersBoard.fxml'.";
-        assert piece_F8 != null : "fx:id=\"piece_F8\" was not injected: check your FXML file 'checkersBoard.fxml'.";
-        assert piece_E7 != null : "fx:id=\"piece_E7\" was not injected: check your FXML file 'checkersBoard.fxml'.";
-        assert piece_E1 != null : "fx:id=\"piece_E1\" was not injected: check your FXML file 'checkersBoard.fxml'.";
-        assert piece_F2 != null : "fx:id=\"piece_F2\" was not injected: check your FXML file 'checkersBoard.fxml'.";
-        assert piece_C1 != null : "fx:id=\"piece_C1\" was not injected: check your FXML file 'checkersBoard.fxml'.";
-        assert piece_D2 != null : "fx:id=\"piece_D2\" was not injected: check your FXML file 'checkersBoard.fxml'.";
-        assert piece_G1 != null : "fx:id=\"piece_G1\" was not injected: check your FXML file 'checkersBoard.fxml'.";
-        assert piece_H2 != null : "fx:id=\"piece_H2\" was not injected: check your FXML file 'checkersBoard.fxml'.";
+        assert pieceBlack_8 != null : "fx:id=\"pieceBlack_8\" was not injected: check your FXML file 'checkersBoard.fxml'.";
+        assert pieceBlack_7 != null : "fx:id=\"pieceBlack_7\" was not injected: check your FXML file 'checkersBoard.fxml'.";
+        assert pieceBlack_6 != null : "fx:id=\"pieceBlack_6\" was not injected: check your FXML file 'checkersBoard.fxml'.";
+        assert pieceBlack_5 != null : "fx:id=\"pieceBlack_5\" was not injected: check your FXML file 'checkersBoard.fxml'.";
+        assert pieceBlack_4 != null : "fx:id=\"pieceBlack_4\" was not injected: check your FXML file 'checkersBoard.fxml'.";
+        assert pieceBlack_3 != null : "fx:id=\"pieceBlack_3\" was not injected: check your FXML file 'checkersBoard.fxml'.";
+        assert pieceBlack_2 != null : "fx:id=\"pieceBlack_2\" was not injected: check your FXML file 'checkersBoard.fxml'.";
+        assert pieceBlack_1 != null : "fx:id=\"pieceBlack_1\" was not injected: check your FXML file 'checkersBoard.fxml'.";
+        assert pieceWhite_8 != null : "fx:id=\"pieceWhite_8\" was not injected: check your FXML file 'checkersBoard.fxml'.";
+        assert pieceWhite_7 != null : "fx:id=\"pieceWhite_7\" was not injected: check your FXML file 'checkersBoard.fxml'.";
+        assert pieceWhite_6 != null : "fx:id=\"pieceWhite_6\" was not injected: check your FXML file 'checkersBoard.fxml'.";
+        assert pieceWhite_5 != null : "fx:id=\"pieceWhite_5\" was not injected: check your FXML file 'checkersBoard.fxml'.";
+        assert pieceWhite_4 != null : "fx:id=\"pieceWhite_4\" was not injected: check your FXML file 'checkersBoard.fxml'.";
+        assert pieceWhite_3 != null : "fx:id=\"pieceWhite_3\" was not injected: check your FXML file 'checkersBoard.fxml'.";
+        assert pieceWhite_2 != null : "fx:id=\"pieceWhite_2\" was not injected: check your FXML file 'checkersBoard.fxml'.";
+        assert pieceWhite_1 != null : "fx:id=\"pieceWhite_1\" was not injected: check your FXML file 'checkersBoard.fxml'.";
 
-    }
+    }*/
 }
