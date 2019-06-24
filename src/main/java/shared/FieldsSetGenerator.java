@@ -1,3 +1,5 @@
+package shared;
+
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 

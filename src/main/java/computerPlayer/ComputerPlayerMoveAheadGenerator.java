@@ -1,16 +1,20 @@
+package computerPlayer;
+
+import shared.*;
+
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 import java.util.*;
 
-public class ComputerPlayerMoveAheadGenerator {
-    ComputerPlayerAvailableFieldsSetGenerator availableFieldsSetGenerator = new ComputerPlayerAvailableFieldsSetGenerator();
-    NodeCoordinatesFinder coordinatesFinder = new NodeCoordinatesFinder();
-    FieldStatusChecker fieldStatusChecker = new FieldStatusChecker();
-    ComputerPlayerNodeGetter nodeGetter = new ComputerPlayerNodeGetter();
+class ComputerPlayerMoveAheadGenerator {
+    private ComputerPlayerAvailableFieldsSetGenerator availableFieldsSetGenerator = new ComputerPlayerAvailableFieldsSetGenerator();
+    private NodeCoordinatesFinder coordinatesFinder = new NodeCoordinatesFinder();
+    private FieldStatusChecker fieldStatusChecker = new FieldStatusChecker();
+    private ComputerPlayerNodeGetter nodeGetter = new ComputerPlayerNodeGetter();
 
     /*creates list of all empty fields around a piece allowing to move ahead*/
-    public List<Rectangle> getFieldsToMoveAhead (Circle blackPiece, List<Circle> allPieces, List<Rectangle> allBronzeFields) {
+    private List<Rectangle> getFieldsToMoveAhead(Circle blackPiece, List<Circle> allPieces, List<Rectangle> allBronzeFields) {
         Integer[] blackPieceCoordinates = coordinatesFinder.getCoordinates(blackPiece);
         List<Rectangle> fieldsToMoveAhead = new ArrayList<>();
         List<ArrayList<Integer>> twoAdjacentFieldsList = availableFieldsSetGenerator.getUpperAdjacentFieldsCoordinates(blackPieceCoordinates);
@@ -24,7 +28,7 @@ public class ComputerPlayerMoveAheadGenerator {
     }
 
     /*creates a set of all empty fields available for all pieces together*/
-    public List<Rectangle> getAllFieldsToMoveAhead (List<Circle> blackPieces, List<Circle> allPieces, List<Rectangle> allBronzeFields) {
+    List<Rectangle> getAllFieldsToMoveAhead(List<Circle> blackPieces, List<Circle> allPieces, List<Rectangle> allBronzeFields) {
         Set<Rectangle> allFieldsToMoveAheadSet = new HashSet<>();
 
         for (Circle blackPiece : blackPieces) {
@@ -37,7 +41,7 @@ public class ComputerPlayerMoveAheadGenerator {
         return allFieldsToMoveAhead;
     }
 
-    public Rectangle getRandomEmptyField (List<Circle> blackPieces, List<Circle> allPieces, List<Rectangle> allBronzeField) {
+    Rectangle getRandomEmptyField(List<Circle> blackPieces, List<Circle> allPieces, List<Rectangle> allBronzeField) {
         Random numberGenerator = new Random();
         List<Rectangle> allFieldsToMoveAhead = getAllFieldsToMoveAhead(blackPieces, allPieces, allBronzeField);
         int fieldNumberInArray = numberGenerator.nextInt(allFieldsToMoveAhead.size());
@@ -46,7 +50,7 @@ public class ComputerPlayerMoveAheadGenerator {
         return randomEmptyField;
     }
 
-    public List<Circle> getPiecesToMoveAhead (Rectangle randomEmptyField, List<Circle> blackPieces) {
+    private List<Circle> getPiecesToMoveAhead(Rectangle randomEmptyField, List<Circle> blackPieces) {
         Integer[] randomEmptyFieldCoordinates = coordinatesFinder.getCoordinates(randomEmptyField);
         List<Circle> piecesToMoveAhead = new ArrayList<>();
         List<ArrayList<Integer>> twoLowerAdjacentFieldsList = availableFieldsSetGenerator.getLowerAdjacentFieldsCoordinates(randomEmptyFieldCoordinates);
@@ -59,7 +63,7 @@ public class ComputerPlayerMoveAheadGenerator {
         return piecesToMoveAhead;
     }
 
-    public Circle getRandomPieceToMoveAhead (Rectangle randomEmptyField, List<Circle> blackPieces) {
+    Circle getRandomPieceToMoveAhead(Rectangle randomEmptyField, List<Circle> blackPieces) {
         List<Circle> piecesToMoveAhead = getPiecesToMoveAhead(randomEmptyField, blackPieces);
         Random numberGenerator = new Random();
         int fieldNumberInArray = numberGenerator.nextInt(piecesToMoveAhead.size());

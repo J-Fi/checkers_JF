@@ -9,7 +9,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/checkersBoard.fxml"));
-        //Group group = new Group();
         Scene scene = new Scene(root ,1400, 1000);
         scene.setFill(Color.BROWN);
         primaryStage.setTitle("Checkers");

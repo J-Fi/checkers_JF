@@ -1,15 +1,17 @@
+package shared;
+
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class PieceMover {
 
-    Integer chosenPiece_col;
-    Integer chosenPiece_row;
-    Integer clickedNode_col;
-    Integer clickedNode_row;
+    private Integer chosenPiece_col;
+    private Integer chosenPiece_row;
+    private Integer clickedNode_col;
+    private Integer clickedNode_row;
 
-    NodeCoordinatesFinder coordinatesFinder = new NodeCoordinatesFinder();
+    private NodeCoordinatesFinder coordinatesFinder = new NodeCoordinatesFinder();
 
     public void movePieceAhead (Circle chosenPiece, Integer[] clickedNodeCoordinates, String whitePieceColorWhenChosen, String blackPieceColor) {
 

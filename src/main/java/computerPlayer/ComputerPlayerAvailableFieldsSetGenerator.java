@@ -1,14 +1,16 @@
+package computerPlayer;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ComputerPlayerAvailableFieldsSetGenerator {
+class ComputerPlayerAvailableFieldsSetGenerator {
 
     private Integer col;
     private Integer row;
 
-    public List<ArrayList<Integer>> getUpperAdjacentFieldsCoordinates (Integer[] pieceCoordinates) {
+    List<ArrayList<Integer>> getUpperAdjacentFieldsCoordinates(Integer[] pieceCoordinates) {
         col = pieceCoordinates[0];
         row = pieceCoordinates[1];
 
@@ -29,7 +31,7 @@ public class ComputerPlayerAvailableFieldsSetGenerator {
         return list;
     }
 
-    public List<ArrayList<Integer>> getLowerAdjacentFieldsCoordinates (Integer[] pieceCoordinates) {
+    List<ArrayList<Integer>> getLowerAdjacentFieldsCoordinates(Integer[] pieceCoordinates) {
         col = pieceCoordinates[0];
         row = pieceCoordinates[1];
 
@@ -49,7 +51,7 @@ public class ComputerPlayerAvailableFieldsSetGenerator {
         return list;
     }
 
-    public Map<ArrayList<Integer>, ArrayList<Integer>> getAdjacentToAdjacentFieldsCoordinates (Integer[] pieceCoordinates) {
+    Map<ArrayList<Integer>, ArrayList<Integer>> getAdjacentToAdjacentFieldsCoordinates(Integer[] pieceCoordinates) {
         col = pieceCoordinates[0];
         row = pieceCoordinates[1];
 

@@ -1,14 +1,18 @@
+package computerPlayer;
+
+import shared.*;
+
 import javafx.scene.shape.Circle;
 
 import java.util.*;
 
-public class ComputerPlayerMoveToBeatGenerator {
-    ComputerPlayerAvailableFieldsSetGenerator availableFieldsSetGenerator = new ComputerPlayerAvailableFieldsSetGenerator();
-    NodeCoordinatesFinder coordinatesFinder = new NodeCoordinatesFinder();
-    FieldStatusChecker fieldStatusChecker = new FieldStatusChecker();
-    ComputerPlayerNodeGetter nodeGetter = new ComputerPlayerNodeGetter();
+class ComputerPlayerMoveToBeatGenerator {
+    private ComputerPlayerAvailableFieldsSetGenerator availableFieldsSetGenerator = new ComputerPlayerAvailableFieldsSetGenerator();
+    private NodeCoordinatesFinder coordinatesFinder = new NodeCoordinatesFinder();
+    private FieldStatusChecker fieldStatusChecker = new FieldStatusChecker();
+    private ComputerPlayerNodeGetter nodeGetter = new ComputerPlayerNodeGetter();
 
-    public List<Circle> getUserPiecesToBeat (Circle computerPiece, List<Circle> userPieces, List<Circle> allPieces) {
+    private List<Circle> getUserPiecesToBeat(Circle computerPiece, List<Circle> userPieces, List<Circle> allPieces) {
         List<Circle> userPiecesToBeat = new ArrayList<>();
         Integer[] coordinates = coordinatesFinder.getCoordinates(computerPiece);
         Map<ArrayList<Integer>, ArrayList<Integer>> fourCornerFieldsList = availableFieldsSetGenerator.getAdjacentToAdjacentFieldsCoordinates(coordinates);
@@ -23,20 +27,21 @@ public class ComputerPlayerMoveToBeatGenerator {
         return userPiecesToBeat;
     }
 
-    public List<Circle> getAllUserPiecesToBeat (List<Circle> computerPieces, List<Circle> userPieces, List<Circle> allPieces) {
+    List<Circle> getAllUserPiecesToBeat(List<Circle> computerPieces, List<Circle> userPieces, List<Circle> allPieces) {
         Set<Circle> allUserPiecesToBeatSet = new HashSet<>();
 
         for (Circle computerPiece : computerPieces) {
             List<Circle> userPiecesToBeat = getUserPiecesToBeat(computerPiece, userPieces, allPieces);
-            for (Circle userPieceToBeat : userPiecesToBeat) {
+            allUserPiecesToBeatSet.addAll(userPiecesToBeat);
+            /*for (Circle userPieceToBeat : userPiecesToBeat) {
                 allUserPiecesToBeatSet.add(userPieceToBeat);
-            }
+            }*/
         }
         List<Circle> allUserPiecesToBeat = new ArrayList<>(allUserPiecesToBeatSet);
         return allUserPiecesToBeat;
     }
 
-    public Circle getRandomUserPieceToBeat (List<Circle> computerPieces, List<Circle> userPieces, List<Circle> allPieces) {
+    Circle getRandomUserPieceToBeat(List<Circle> computerPieces, List<Circle> userPieces, List<Circle> allPieces) {
         Random numberGenerator = new Random();
         List<Circle> allUserPiecesToBeat = getAllUserPiecesToBeat(computerPieces, userPieces, allPieces);
         int fieldNumberInArray = numberGenerator.nextInt(allUserPiecesToBeat.size());
@@ -44,7 +49,7 @@ public class ComputerPlayerMoveToBeatGenerator {
         return randomUserPieceToBeat;
     }
 
-    public List<Circle> getComputerPiecesToBeatUserPiece (Circle randomUserPieceToBeat, List<Circle> computerPieces, List<Circle> allPieces) {
+    private List<Circle> getComputerPiecesToBeatUserPiece(Circle randomUserPieceToBeat, List<Circle> computerPieces, List<Circle> allPieces) {
         Integer[] randomUserPieceToBeatCoordinates = coordinatesFinder.getCoordinates(randomUserPieceToBeat);
         List<Circle> computerPiecesToBeatUserPiece = new ArrayList<>();
         List<ArrayList<Integer>> lowerAdjacentFieldsList = availableFieldsSetGenerator.getLowerAdjacentFieldsCoordinates(randomUserPieceToBeatCoordinates);
@@ -62,7 +67,7 @@ public class ComputerPlayerMoveToBeatGenerator {
         return computerPiecesToBeatUserPiece;
     }
 
-    public Circle getRandomComputerPieceToBeatUserPiece (List<Circle> computerPieces, List<Circle> userPieces, List<Circle> allPieces) {
+    Circle getRandomComputerPieceToBeatUserPiece(List<Circle> computerPieces, List<Circle> userPieces, List<Circle> allPieces) {
         Circle randomUserPieceToBeat = getRandomUserPieceToBeat(computerPieces, userPieces, allPieces);
         List<Circle> computerPiecesToBeatUserPiece = getComputerPiecesToBeatUserPiece(randomUserPieceToBeat, computerPieces, allPieces);
         Random numberGenerator = new Random();

@@ -1,3 +1,5 @@
+package shared;
+
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 
@@ -29,9 +31,7 @@ public class FieldStatusChecker {
     public boolean isTargetFieldWithinBoard (Integer[] clickedNodeCoordinates) {
         Integer col = clickedNodeCoordinates[0];
         Integer row = clickedNodeCoordinates[1];
-        if (col + 1 <= 8 && col - 1 >= 1 && row + 1 <= 8 & row -1 >= 1) {
-            return true;
-        }
-        return false;
+
+        return (col + 1 <= 8 && col - 1 >= 1 && row + 1 <= 8 & row -1 >= 1);
     }
 }

@@ -1,3 +1,7 @@
+package computerPlayer;
+
+import shared.*;
+
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -6,12 +10,12 @@ import java.util.*;
 
 public class ComputerPlayer {
 
-    public void computerMovesPiece (List<Circle> blackPieces, List<Circle> whitePieces, List<Circle> allPieces, List<Rectangle> allBronzeFields, GridPane gridPane, String whitePieceColorWhenChosen, String blackPieceColor) {
-        ComputerPlayerMoveToBeatGenerator moveToBeatGenerator = new ComputerPlayerMoveToBeatGenerator();
-        ComputerPlayerMoveAheadGenerator moveAheadGenerator = new ComputerPlayerMoveAheadGenerator();
-        NodeCoordinatesFinder coordinatesFinder = new NodeCoordinatesFinder();
-        PieceMover pieceMover = new PieceMover();
+    private ComputerPlayerMoveToBeatGenerator moveToBeatGenerator = new ComputerPlayerMoveToBeatGenerator();
+    private ComputerPlayerMoveAheadGenerator moveAheadGenerator = new ComputerPlayerMoveAheadGenerator();
+    private NodeCoordinatesFinder coordinatesFinder = new NodeCoordinatesFinder();
+    private PieceMover pieceMover = new PieceMover();
 
+    public void computerMovesPiece (List<Circle> blackPieces, List<Circle> whitePieces, List<Circle> allPieces, List<Rectangle> allBronzeFields, GridPane gridPane, String whitePieceColorWhenChosen, String blackPieceColor) {
         List<Circle> allUserPiecesToBeat = moveToBeatGenerator.getAllUserPiecesToBeat(blackPieces, whitePieces, allPieces);
         List<Rectangle> allFieldsToMoveAhead = moveAheadGenerator.getAllFieldsToMoveAhead(blackPieces, allPieces, allBronzeFields);
 

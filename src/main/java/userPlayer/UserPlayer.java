@@ -1,3 +1,7 @@
+package userPlayer;
+
+import shared.*;
+
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -9,9 +13,10 @@ import java.util.List;
 
 public class UserPlayer {
 
-    PieceMover pieceMover = new PieceMover();
-    FieldStatusChecker fieldStatusChecker = new FieldStatusChecker();
-    NodeCoordinatesFinder coordinatesFinder = new NodeCoordinatesFinder();
+    private PieceMover pieceMover = new PieceMover();
+    private FieldStatusChecker fieldStatusChecker = new FieldStatusChecker();
+    private NodeCoordinatesFinder coordinatesFinder = new NodeCoordinatesFinder();
+    private PieceSelector pieceSelector = new PieceSelector();
 
     public void movePieceByUser (Object obj, List<Circle> whitePieces, GridPane gridPane, String pieceColor, String pieceColorWhenChosen, String opponentPieceColor, List<Circle> allPieces) {
         Integer[] chosenPieceCoordinates = getChosenPieceCoordinates(whitePieces, pieceColorWhenChosen);
@@ -34,16 +39,15 @@ public class UserPlayer {
         }
     }
 
-    public Circle getChosenPiece(List<Circle> pieces, String pieceColorWhenChosen) {
-        PieceSelector pieceSelector = new PieceSelector();
+    private Circle getChosenPiece(List<Circle> pieces, String pieceColorWhenChosen) {
         return pieceSelector.findChosenPiece(pieces, pieceColorWhenChosen);
     }
 
-    public Integer[] getClickedNodeCoordinates(Object obj) {
+    private Integer[] getClickedNodeCoordinates(Object obj) {
         return coordinatesFinder.getCoordinates((Node) obj);
     }
 
-    public Integer[] getChosenPieceCoordinates(List<Circle> pieces, String pieceColorWhenChosen){
+    private Integer[] getChosenPieceCoordinates(List<Circle> pieces, String pieceColorWhenChosen){
         Circle chosenPiece = getChosenPiece(pieces, pieceColorWhenChosen);
         return coordinatesFinder.getCoordinates(chosenPiece);
     }
