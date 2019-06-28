@@ -33,9 +33,6 @@ class ComputerPlayerMoveToBeatGenerator {
         for (Circle computerPiece : computerPieces) {
             List<Circle> userPiecesToBeat = getUserPiecesToBeat(computerPiece, userPieces, allPieces);
             allUserPiecesToBeatSet.addAll(userPiecesToBeat);
-            /*for (Circle userPieceToBeat : userPiecesToBeat) {
-                allUserPiecesToBeatSet.add(userPieceToBeat);
-            }*/
         }
         List<Circle> allUserPiecesToBeat = new ArrayList<>(allUserPiecesToBeatSet);
         return allUserPiecesToBeat;

@@ -18,7 +18,7 @@ public class UserPlayer {
     private NodeCoordinatesFinder coordinatesFinder = new NodeCoordinatesFinder();
     private PieceSelector pieceSelector = new PieceSelector();
 
-    public void movePieceByUser (Object obj, List<Circle> whitePieces, GridPane gridPane, String pieceColor, String pieceColorWhenChosen, String opponentPieceColor, List<Circle> allPieces) {
+    public boolean movePieceByUser (Object obj, List<Circle> whitePieces, GridPane gridPane, String pieceColor, String pieceColorWhenChosen, String opponentPieceColor, List<Circle> allPieces) {
         Integer[] chosenPieceCoordinates = getChosenPieceCoordinates(whitePieces, pieceColorWhenChosen);
         Integer[] clickedNodeCoordinates = getClickedNodeCoordinates(obj);
         Circle chosenPiece = getChosenPiece(whitePieces, pieceColorWhenChosen);
@@ -27,16 +27,20 @@ public class UserPlayer {
                 if (((Circle) obj).getFill().equals(Paint.valueOf(opponentPieceColor))) {
                     if (fieldStatusChecker.isTargetFieldWithinBoard(clickedNodeCoordinates) && !fieldStatusChecker.isPieceOnTheFieldOpposite(clickedNodeCoordinates, allPieces, chosenPieceCoordinates[0], chosenPieceCoordinates[1])) { //(clickedNodeCoordinates[0] + 1), (clickedNodeCoordinates[1] + 1)) || !isPieceOnTheField(allPieces, (clickedNodeCoordinates[0] - 1), (clickedNodeCoordinates[1] + 1))
                         pieceMover.movePieceToBeat(chosenPiece, chosenPieceCoordinates, clickedNodeCoordinates);
-                        gridPane.getChildren().remove(obj);
+                        boolean result = gridPane.getChildren().remove(obj);
+                        chosenPiece.setFill(Color.web(pieceColor));
+                        return result;
                     }
                 }
             } else if (obj instanceof Rectangle) {
                 if (!fieldStatusChecker.isPieceOnTheField(allPieces, clickedNodeCoordinates[0], clickedNodeCoordinates[1])) {
                     pieceMover.movePieceAhead(chosenPiece, clickedNodeCoordinates, pieceColorWhenChosen, pieceColor);
+                    chosenPiece.setFill(Color.web(pieceColor));
+                    return true;
                 }
             }
-            chosenPiece.setFill(Color.web(pieceColor));
         }
+        return false;
     }
 
     private Circle getChosenPiece(List<Circle> pieces, String pieceColorWhenChosen) {
